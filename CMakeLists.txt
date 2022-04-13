@@ -3,7 +3,7 @@ project(vulkan)
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_executable(vulkan main.cpp lve_window.cpp first_app.cpp lve_pipeline.cpp lve_device.cpp)
+add_executable(vulkan main.cpp lve_window.cpp first_app.cpp lve_pipeline.cpp lve_device.cpp lve_swap_chain.cpp)
 
 include_directories(/usr/local/include)
 
