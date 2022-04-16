@@ -1,6 +1,7 @@
 #pragma once
 
 #include "lve_device.hpp"
+#include "lve_model.hpp"
 
 #include <string>
 #include <vector>
