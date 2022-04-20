@@ -12,8 +12,6 @@ namespace lve {
         PipelineConfigInfo(const PipelineConfigInfo&) = delete;
         PipelineConfigInfo& operator=(const PipelineConfigInfo&) = delete;
 
-        VkViewport viewport;
-        VkRect2D scissor;
         VkPipelineViewportStateCreateInfo viewportInfo;
         VkPipelineInputAssemblyStateCreateInfo inputAssemblyInfo;
         VkPipelineRasterizationStateCreateInfo rasterizationInfo;
@@ -24,6 +22,8 @@ namespace lve {
         VkPipelineLayout pipelineLayout = nullptr;
         VkRenderPass renderPass = nullptr;
         uint32_t subpass = 0;
+        std::vector<VkDynamicState> dynamicStateEnables;
+        VkPipelineDynamicStateCreateInfo dynamicStateInfo;
     };
 
     class LvePipeline {
@@ -38,10 +38,9 @@ namespace lve {
         ~LvePipeline();
 
         LvePipeline(const LvePipeline &) = delete;
+        LvePipeline& operator=(const LvePipeline &) = delete;
 
-        void operator=(const LvePipeline &) = delete;
-
-        static void defaultPipelineConfigInfo(PipelineConfigInfo &configInfo, uint32_t width, uint32_t height);
+        static void defaultPipelineConfigInfo(PipelineConfigInfo &configInfo);
 
         void bind(VkCommandBuffer commandBuffer);
 

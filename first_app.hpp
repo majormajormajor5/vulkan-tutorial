@@ -25,13 +25,16 @@ namespace lve {
             void createPipelineLayout();
             void createPipeline();
             void createCommandBuffers();
+            void freeCommandBuffers();
             void drawFrame();
             void loadModels();
+            void recreateSwapChain();
+            void recordCommandBuffer(int imageIndex);
 
 
             LveWindow lveWindow {WIDTH, HEIGHT, "HELLO VULKAN"};
             LveDevice lveDevice{lveWindow};
-            LveSwapChain lveSwapChain{lveDevice, lveWindow.getExtent()};
+            std::unique_ptr<LveSwapChain> lveSwapChain;
 //            LvePipeline lvePipeline{
 //                lveDevice,
 //                "/Users/apavl2/projects/cpp/brendan_galea/vulkan_tutorial/shaders/simple_shader.vert.spv",

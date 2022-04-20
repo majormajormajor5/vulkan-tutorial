@@ -433,6 +433,7 @@ void LveDevice::createBuffer(
   }
 
   vkBindBufferMemory(device_, buffer, bufferMemory, 0);
+//  vkFen
 }
 
 VkCommandBuffer LveDevice::beginSingleTimeCommands() {
