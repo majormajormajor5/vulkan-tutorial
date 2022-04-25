@@ -21,6 +21,8 @@ namespace lve {
 
             void createWindowSurface(VkInstance instance, VkSurfaceKHR* surface);
 
+            GLFWwindow* getGlfwWindow() { return window; }
+
             VkExtent2D getExtent() { return {static_cast<uint32_t >(width), static_cast<uint32_t >(width)}; }
 
         private:

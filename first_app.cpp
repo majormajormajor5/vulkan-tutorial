@@ -10,6 +10,15 @@
 #include <glm/gtc/constants.hpp>
 
 namespace lve {
+    static float speed = 1.f; //TODO make this not global
+    void keyCallback(GLFWwindow *window, int key, int scancode, int action, int mods) //TODO make this not global
+    {
+        if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS) {
+            glfwSetWindowShouldClose(window, GLFW_TRUE);
+        } else if (key == GLFW_KEY_F && action == GLFW_PRESS) {
+            speed++;
+        };
+    }
 
     struct SimplePushConstantData {
         glm::mat2 transform{1.f}; //Identity matrix, with 1s on diagonal
@@ -30,6 +39,8 @@ namespace lve {
 
     void FirstApp::run()
     {
+        glfwSetKeyCallback(lveWindow.getGlfwWindow(), keyCallback);
+
         while (!lveWindow.shouldClose()) {
             glfwPollEvents();
             drawFrame();
@@ -224,7 +235,8 @@ namespace lve {
         lvePipeline->bind(commandBuffer);
 
         for (auto& obj: gameObjects) {
-            obj.transform2d.rotation = glm::mod(obj.transform2d.rotation + 0.01f, glm::two_pi<float>());
+//            obj.transform2d.rotation = glm::mod(obj.transform2d.rotation + 0.01f, glm::two_pi<float>());
+            obj.transform2d.rotation = glm::mod(obj.transform2d.rotation + 0.01f * speed, glm::two_pi<float>());
 
             SimplePushConstantData push{};
             push.offset = obj.transform2d.translation;
