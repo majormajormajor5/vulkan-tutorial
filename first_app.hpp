@@ -33,16 +33,9 @@ namespace lve {
             void recordCommandBuffer(int imageIndex);
             void renderGameObjects(VkCommandBuffer commandBuffer);
 
-
             LveWindow lveWindow {WIDTH, HEIGHT, "HELLO VULKAN"};
             LveDevice lveDevice{lveWindow};
             std::unique_ptr<LveSwapChain> lveSwapChain;
-//            LvePipeline lvePipeline{
-//                lveDevice,
-//                "/Users/apavl2/projects/cpp/brendan_galea/vulkan_tutorial/shaders/simple_shader.vert.spv",
-//                "/Users/apavl2/projects/cpp/brendan_galea/vulkan_tutorial/shaders/simple_shader.frag.spv",
-//                LvePipeline::defaultPipelineConfigInfo(WIDTH, HEIGHT)
-//            };
             std::unique_ptr<LvePipeline> lvePipeline;
             VkPipelineLayout pipelineLayout;
             std::vector<VkCommandBuffer> commandBuffers;
