@@ -409,7 +409,9 @@ void LveDevice::createBuffer(
     VkBufferUsageFlags usage,
     VkMemoryPropertyFlags properties,
     VkBuffer &buffer,
-    VkDeviceMemory &bufferMemory) {
+    VkDeviceMemory &bufferMemory
+) {
+
   VkBufferCreateInfo bufferInfo{};
   bufferInfo.sType = VK_STRUCTURE_TYPE_BUFFER_CREATE_INFO;
   bufferInfo.size = size;
@@ -419,7 +421,7 @@ void LveDevice::createBuffer(
   if (vkCreateBuffer(device_, &bufferInfo, nullptr, &buffer) != VK_SUCCESS) {
     throw std::runtime_error("failed to create vertex buffer!");
   }
-
+//todo investigate if size == memReq.size
   VkMemoryRequirements memRequirements;
   vkGetBufferMemoryRequirements(device_, buffer, &memRequirements);
 
@@ -428,6 +430,10 @@ void LveDevice::createBuffer(
   allocInfo.allocationSize = memRequirements.size;
   allocInfo.memoryTypeIndex = findMemoryType(memRequirements.memoryTypeBits, properties);
 
+  std::cout << "buffer requested size : " << size;
+  std::cout << "mem req size : " << memRequirements.size;
+
+  std::runtime_error("end");
   if (vkAllocateMemory(device_, &allocInfo, nullptr, &bufferMemory) != VK_SUCCESS) {
     throw std::runtime_error("failed to allocate vertex buffer memory!");
   }
@@ -448,6 +454,7 @@ VkCommandBuffer LveDevice::beginSingleTimeCommands() {
   VkCommandBufferBeginInfo beginInfo{};
   beginInfo.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_BEGIN_INFO;
   beginInfo.flags = VK_COMMAND_BUFFER_USAGE_ONE_TIME_SUBMIT_BIT;
+//  beginInfo.flags = VK_COMMAND_BUFFER_USAGE_SIMULTANEOUS_USE_BIT;
 
   vkBeginCommandBuffer(commandBuffer, &beginInfo);
   return commandBuffer;
